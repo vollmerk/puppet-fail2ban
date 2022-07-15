@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper_acceptance'
 
 case fact('osfamily')
@@ -75,13 +77,16 @@ describe 'fail2ban' do
       describe package(package_name) do
         it { is_expected.not_to be_installed }
       end
+
       describe file(config_file_path) do
         it { is_expected.to be_file }
       end
+
       describe service(service_name) do
         it { is_expected.not_to be_running }
         # The docker images of Debian do not use systemd, the following test
         # cannot be performed on these images.
+
         it { is_expected.not_to be_enabled } if fact('osfamily') != 'Debian'
       end
     end
@@ -102,9 +107,11 @@ describe 'fail2ban' do
       describe package(package_name) do
         it { is_expected.not_to be_installed }
       end
+
       describe file(config_file_path) do
         it { is_expected.not_to be_file }
       end
+
       describe service(service_name) do
         it { is_expected.not_to be_running }
         it { is_expected.not_to be_enabled }
@@ -130,8 +137,12 @@ describe 'fail2ban' do
     context 'when content template' do
       it 'is_expected.to work with no errors' do
         pp = <<-EOS
+          $_config_file_template = $facts['os']['family'] ? {
+            'RedHat' => "fail2ban/RedHat/#{fact('os.release.major')}/#{config_file_path}.epp",
+            default  => "fail2ban/#{fact('os.name')}/#{fact('os.release.major')}/#{config_file_path}.epp",
+          }
           class { 'fail2ban':
-            config_file_template => "fail2ban/#{fact('os.name')}/#{fact('os.release.major')}/#{config_file_path}.epp",
+            config_file_template => $_config_file_template,
           }
         EOS
 
@@ -148,8 +159,12 @@ describe 'fail2ban' do
     context 'when content template and custom chain' do
       it 'is_expected.to work with no errors' do
         pp = <<-EOS
+          $_config_file_template = $facts['os']['family'] ? {
+            'RedHat' => "fail2ban/RedHat/#{fact('os.release.major')}/#{config_file_path}.epp",
+            default  => "fail2ban/#{fact('os.name')}/#{fact('os.release.major')}/#{config_file_path}.epp",
+          }
           class { 'fail2ban':
-            config_file_template => "fail2ban/#{fact('os.name')}/#{fact('os.release.major')}/#{config_file_path}.epp",
+            config_file_template => $_config_file_template,
             iptables_chain => 'TEST',
           }
         EOS
@@ -167,8 +182,12 @@ describe 'fail2ban' do
     context 'when content template and custom banaction' do
       it 'is_expected.to work with no errors' do
         pp = <<-EOS
+          $_config_file_template = $facts['os']['family'] ? {
+            'RedHat' => "fail2ban/RedHat/#{fact('os.release.major')}/#{config_file_path}.epp",
+            default  => "fail2ban/#{fact('os.name')}/#{fact('os.release.major')}/#{config_file_path}.epp",
+          }
           class { 'fail2ban':
-            config_file_template => "fail2ban/#{fact('os.name')}/#{fact('os.release.major')}/#{config_file_path}.epp",
+            config_file_template => $_config_file_template,
             banaction            => 'iptables'
           }
         EOS
@@ -185,8 +204,12 @@ describe 'fail2ban' do
     context 'when content template and custom sender' do
       it 'is_expected.to work with no errors' do
         pp = <<-EOS
+          $_config_file_template = $facts['os']['family'] ? {
+            'RedHat' => "fail2ban/RedHat/#{fact('os.release.major')}/#{config_file_path}.epp",
+            default  => "fail2ban/#{fact('os.name')}/#{fact('os.release.major')}/#{config_file_path}.epp",
+          }
           class { 'fail2ban':
-            config_file_template => "fail2ban/#{fact('os.name')}/#{fact('os.release.major')}/#{config_file_path}.epp",
+            config_file_template => $_config_file_template,
             sender => 'custom-sender@example.com',
           }
         EOS
@@ -243,6 +266,7 @@ describe 'fail2ban' do
         expect(fail2ban_status.output).to contain ssh_jail
       end
     end
+
     context 'when service start/stop notification are disabled' do
       it 'is expected.to have empty sshd actions' do
         pp = <<-EOS
@@ -265,6 +289,5 @@ describe 'fail2ban' do
         end
       end
     end
-    # rubocop:enable RSpec/MultipleExpectations
   end
 end

@@ -4,6 +4,44 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v4.1.0](https://github.com/voxpupuli/puppet-fail2ban/tree/v4.1.0) (2022-04-12)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-fail2ban/compare/v4.0.0...v4.1.0)
+
+**Implemented enhancements:**
+
+- Consolidate jail.conf.epp for RedHat osfamily [\#177](https://github.com/voxpupuli/puppet-fail2ban/pull/177) ([traylenator](https://github.com/traylenator))
+- Support CentOS/RHEL/Alma/Rocky 9 [\#176](https://github.com/voxpupuli/puppet-fail2ban/pull/176) ([traylenator](https://github.com/traylenator))
+- Allow puppet/extlib 6.x [\#174](https://github.com/voxpupuli/puppet-fail2ban/pull/174) ([bastelfreak](https://github.com/bastelfreak))
+- Add AlmaLinux & Rocky config, identical to CentOS [\#163](https://github.com/voxpupuli/puppet-fail2ban/pull/163) ([vollmerk](https://github.com/vollmerk))
+- Initial support for openSUSE [\#158](https://github.com/voxpupuli/puppet-fail2ban/pull/158) ([mattqm](https://github.com/mattqm))
+
+**Fixed bugs:**
+
+- Fix apache-badbots on RedHat [\#148](https://github.com/voxpupuli/puppet-fail2ban/pull/148) ([deric](https://github.com/deric))
+
+## [v4.0.0](https://github.com/voxpupuli/puppet-fail2ban/tree/v4.0.0) (2021-12-13)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-fail2ban/compare/v3.3.0...v4.0.0)
+
+**Breaking changes:**
+
+- Drop support for Debian 8, 9; Ubuntu 16.04; RedHat 6; CentOS 6 \(EOL\) [\#167](https://github.com/voxpupuli/puppet-fail2ban/pull/167) ([smortex](https://github.com/smortex))
+- Drop support of Puppet 5 \(EOL\) [\#166](https://github.com/voxpupuli/puppet-fail2ban/pull/166) ([smortex](https://github.com/smortex))
+
+**Implemented enhancements:**
+
+- Add support for Debian 11 bullseye [\#170](https://github.com/voxpupuli/puppet-fail2ban/pull/170) ([michaelw](https://github.com/michaelw))
+- Add support for Puppet 7 [\#168](https://github.com/voxpupuli/puppet-fail2ban/pull/168) ([smortex](https://github.com/smortex))
+
+**Closed issues:**
+
+- "no directory /var/run/fail2ban to contain the socket file" [\#35](https://github.com/voxpupuli/puppet-fail2ban/issues/35)
+
+**Merged pull requests:**
+
+- Allow stdlib 8.0.0 [\#165](https://github.com/voxpupuli/puppet-fail2ban/pull/165) ([smortex](https://github.com/smortex))
+
 ## [v3.3.0](https://github.com/voxpupuli/puppet-fail2ban/tree/v3.3.0) (2020-08-15)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-fail2ban/compare/v3.2.0...v3.3.0)
